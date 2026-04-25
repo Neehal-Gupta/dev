@@ -46,9 +46,9 @@ dev/
 │   └── styles.css
 ├── js/
 │   └── script.js
-├── assets/
-│   ├── images/
-│   └── docs/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
 └── README.md
 ```
 
