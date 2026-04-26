@@ -217,9 +217,11 @@ My strengths include:
 
 ];
 
+let hasInteractedWithChat = false;
+
 function renderSuggestions() {
   const suggestionBox = document.getElementById("chat-suggestions");
-
+  // hasInteractedWithChat = true;
   if (!suggestionBox) {
     console.error("chat-suggestions div not found");
     return;
@@ -232,6 +234,7 @@ function renderSuggestions() {
     btn.innerText = intent.question;
 
     btn.onclick = () => {
+      hasInteractedWithChat = true;
       addMessage(intent.question, "user");
 
       showTyping(() => {
@@ -457,6 +460,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   toggle.addEventListener("click", () => {
     chatWindow.classList.toggle("open");
+    hasInteractedWithChat = true; 
 
     if (chatWindow.classList.contains("open")) {
       backBtn.style.display = "none";
@@ -475,7 +479,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (window.scrollY > 300) {
+    if (hasInteractedWithChat && window.scrollY > 300) {
       backBtn.style.display = "block";
       toggle.style.display = "none";  
     } else {
@@ -601,7 +605,7 @@ You can reach me at:<br>
 function sendMessage() {
   const text = input.value.trim();
   if (!text) return;
-
+  hasInteractedWithChat = true;
   addMessage(text, "user");
   input.value = "";
 
