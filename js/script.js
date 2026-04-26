@@ -447,18 +447,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("chat-toggle");
   const chatWindow = document.getElementById("chat-window");
   const closeBtn = document.getElementById("chat-close");
+  const backBtn = document.getElementById("back-to-chat");
 
   if (!toggle || !chatWindow) {
     console.error("Chat elements not found");
     return;
   }
 
+
   toggle.addEventListener("click", () => {
     chatWindow.classList.toggle("open");
+
+    if (chatWindow.classList.contains("open")) {
+      backBtn.style.display = "none";
+    }
   });
 
+  // 🔥 Close button
   closeBtn.addEventListener("click", () => {
     chatWindow.classList.remove("open");
+  });
+
+  // 🔥 Scroll logic (ONLY place this should exist)
+  window.addEventListener("scroll", () => {
+    if (chatWindow.classList.contains("open")) {
+      backBtn.style.display = "none";
+      return;
+    }
+
+    if (window.scrollY > 300) {
+      backBtn.style.display = "block";
+      toggle.style.display = "none";  
+    } else {
+      backBtn.style.display = "none";
+      toggle.style.display = "flex";  
+    }
+  });
+
+  // 🔥 Back button click
+  backBtn.addEventListener("click", () => {
+    chatWindow.classList.add("open");
+    backBtn.style.display = "none";
+    toggle.style.display = "flex";
   });
 });
 
@@ -556,12 +586,12 @@ That’s a great question 🤔
 I may not have a direct answer yet.
 
 👉 Meanwhile you can explore:
-• <a href="#projects">Projects</a>  
-• <a href="#experience">Experience</a>  <br>
+<button class="chat-link-btn" data-target="projects">Projects</button>
+<button class="chat-link-btn" data-target="experience">Experience</button> <br>
 
 You can reach me at:<br>
-📧 <a href="mailto:nrg9922@gmail.com">nrg9922@gmail.com</a>  <br>
-📞 <a href="tel:+919065802656">+91 9065802656</a> <br>
+<div>📧 <a href="mailto:nrg9922@gmail.com">nrg9922@gmail.com</a></div>
+<div>📞 <a href="tel:+919065802656">+91 90658 02656</a></div>
 
 👉 Feel free to connect for discussions.
 `;
@@ -656,5 +686,96 @@ window.addEventListener("load", () => {
   // Remove #section from URL if present
   if (window.location.hash) {
     history.replaceState(null, null, window.location.pathname);
+  }
+});
+
+// 🔥 SECTION BASED SUGGESTIONS
+const sectionSuggestions = {
+  hero: [
+    "Tell me about yourself",
+    "What do you do?"
+  ],
+  projects: [
+    "Explain your projects",
+    "What tech stack did you use?"
+  ],
+  experience: [
+    "What is your experience?",
+    "What impact did you deliver?"
+  ]
+};
+
+let hasUserScrolled = false;
+
+window.addEventListener("scroll", () => {
+  hasUserScrolled = true;
+});
+
+// 🔥 Detect visible section
+const sectionObserver = new IntersectionObserver((entries) => {
+  if (!hasUserScrolled) return; // 🔥 prevents override on page load
+
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const sectionId = entry.target.id;
+
+      if (sectionSuggestions[sectionId]) {
+        updateSuggestions(sectionSuggestions[sectionId]);
+      }
+    }
+  });
+}, { threshold: 0.5 });
+
+// Observe sections
+["hero", "projects", "experience"].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) sectionObserver.observe(el);
+});
+
+// 🔥 Update suggestions dynamically
+function updateSuggestions(questions) {
+  const suggestionBox = document.getElementById("chat-suggestions");
+  if (!suggestionBox) return;
+
+  suggestionBox.innerHTML = "";
+
+  questions.forEach(q => {
+    const btn = document.createElement("button");
+    btn.innerText = q;
+
+    btn.onclick = () => {
+      addMessage(q, "user");
+
+      showTyping(() => {
+        const reply = getBotReply(q);
+        addMessage(reply, "bot");
+      });
+    };
+
+    suggestionBox.appendChild(btn);
+  });
+}
+
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("chat-link-btn")) {
+
+    const targetId = e.target.getAttribute("data-target");
+    const target = document.getElementById(targetId);
+
+    if (!target) return;
+
+    const offset = 80;
+
+    const topPosition =
+      target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+    window.scrollTo({
+      top: topPosition,
+      behavior: "smooth",
+    });
+
+    // close chat
+    const chatWindow = document.getElementById("chat-window");
+    chatWindow.classList.remove("open");
   }
 });

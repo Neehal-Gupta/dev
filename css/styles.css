@@ -1381,6 +1381,13 @@ footer {
   font-size: 22px;
   cursor: pointer;
   z-index: 999;
+  animation: floatY 3s ease-in-out infinite;
+  transition: all 0.2s ease;
+}
+
+#chat-toggle:hover {
+  animation: none; /* stop floating on hover */
+  transform: scale(1.1);
 }
 
 #chat-window {
@@ -1399,14 +1406,14 @@ footer {
   background: var(--bg);
   color: var(--fg);
   border: 1px solid var(--border);
-  transform: scale(0.9);
+  transform: translateY(40px); 
   opacity: 0;
   pointer-events: none;
   transition: all 0.2s ease;
 }
 
 #chat-window.open {
-  transform: scale(1);
+  transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
 }
@@ -1554,4 +1561,63 @@ footer {
 @keyframes bounce {
   0%, 80%, 100% { transform: scale(0); }
   40% { transform: scale(1); }
+}
+
+#back-to-chat {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+
+  background: var(--accent);
+  color: var(--accent-fg);
+  padding: 10px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+
+  cursor: pointer;
+  display: none;
+  z-index: 999;
+
+  transition: all 0.2s ease;
+  animation: floatY 3.5s ease-in-out infinite, pulseGlow 2.5s ease-in-out infinite;
+}
+
+#back-to-chat:hover {
+  animation: none;
+  transform: scale(1.05);
+}
+
+.chat-link-btn {
+  display: inline-block;
+  margin: 6px 6px 0 0;
+  padding: 6px 12px;
+  font-size: 12px;
+
+  background: var(--card-bg);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chat-link-btn:hover {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+}
+
+/* 🔥 FLOATING ANIMATION */
+@keyframes floatY {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* 🔥 SOFT PULSE */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0px rgba(0,0,0,0); }
+  50% { box-shadow: 0 0 12px var(--accent); }
+  100% { box-shadow: 0 0 0px rgba(0,0,0,0); }
 }
