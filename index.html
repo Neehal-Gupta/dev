@@ -1,416 +1,508 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<!-- <title>Neehal Raj Gupta — Software Engineer</title> -->
- <title>Neehal Raj Gupta | Backend Engineer | Java & AI Systems</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="css/styles.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <title>Neehal Raj Gupta — Software Engineer</title> -->
+  <title>Neehal Raj Gupta | Backend Engineer | Java & AI Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
-<div id="progress"></div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+  <div id="progress"></div>
 
-<!-- LOADER -->
-<div id="loader">
-  <div id="loader-pct">00%</div>
-  <div id="loader-track"><div id="loader-fill"></div></div>
-</div>
-
-<!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">Neehal Raj Gupta</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#certifications">Certifications</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="nav-actions">
-    <button class="theme-btn" id="themeBtn" title="Toggle theme">☀</button>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about">About</a>
-  <a href="#skills">Skills</a>
-  <a href="#experience">Experience</a>
-  <a href="#projects">Projects</a>
-  <a href="#certifications">Certifications</a>
-  <a href="#education">Education</a>
-  <a href="#contact">Contact</a>
-</div>
-
-<!-- FLOATING SIDEBAR -->
-<div class="float-bar">
-  <a href="mailto:nrg9922@gmail.com" class="float-btn" title="Email">✉</a>
-  <a href="https://linkedin.com/in/neehal-raj-gupta-28027217b/" target="_blank" class="float-btn" title="LinkedIn">in</a>
-  <a href="https://github.com/Neehal-Gupta" target="_blank" class="float-btn" title="GitHub">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-  </a>
-</div>
-
-<!-- HERO -->
-<section id="hero">
-  <!-- LEFT: circular photo + stats -->
-  <div class="hero-left">
-    <div class="hero-photo-wrap">
-      <div class="hero-photo-ring"></div>
-      <img
-        src="https://avatars.githubusercontent.com/Neehal-Gupta"
-        alt="Neehal Raj Gupta"
-        class="hero-photo"
-      />
-      <div class="hero-photo-label">Hyderabad, IN</div>
-    </div>
-    <div class="hero-quick-stats">
-      <div class="hero-stat">
-        <div class="hero-stat-num">3+</div>
-        <div class="hero-stat-label">Yrs Exp</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">50+</div>
-        <div class="hero-stat-label">Features</div>
-      </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">7+</div>
-        <div class="hero-stat-label">Certs</div>
-      </div>
+  <!-- LOADER -->
+  <div id="loader">
+    <div id="loader-pct">00%</div>
+    <div id="loader-track">
+      <div id="loader-fill"></div>
     </div>
   </div>
 
-  <!-- RIGHT: name + bio + CTAs -->
-  <div class="hero-right">
-    <div class="hero-eyebrow">Software Engineer</div>
-    <h1 class="hero-title">
-      Neehal<br>
-      Raj<br>
-      <span class="accent">Gupta.</span>
-    </h1>
-    <!-- <p class="hero-bio">
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">Neehal Raj Gupta</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-btn" id="themeBtn" title="Toggle theme">☀</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- FLOATING SIDEBAR -->
+  <div class="float-bar">
+    <a href="mailto:nrg9922@gmail.com" class="float-btn" title="Email">✉</a>
+    <a href="https://linkedin.com/in/neehal-raj-gupta-28027217b/" target="_blank" class="float-btn"
+      title="LinkedIn">in</a>
+    <a href="https://github.com/Neehal-Gupta" target="_blank" class="float-btn" title="GitHub">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+      </svg>
+    </a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <!-- LEFT: circular photo + stats -->
+    <div class="hero-left">
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-ring"></div>
+        <img src="https://avatars.githubusercontent.com/Neehal-Gupta" alt="Neehal Raj Gupta" class="hero-photo" />
+        <div class="hero-photo-label">Hyderabad, IN</div>
+      </div>
+      <div class="hero-quick-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">3+</div>
+          <div class="hero-stat-label">Yrs Exp</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">50+</div>
+          <div class="hero-stat-label">Features</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">7+</div>
+          <div class="hero-stat-label">Certs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: name + bio + CTAs -->
+    <div class="hero-right">
+      <div class="hero-eyebrow">Software Engineer</div>
+      <h1 class="hero-title">
+        Neehal<br>
+        Raj<br>
+        <span class="accent">Gupta.</span>
+      </h1>
+      <!-- <p class="hero-bio">
       Backend engineer specialising in Java, Spring Boot and cloud-native systems.
       Currently at <strong>Genpact</strong>, leading enterprise application development
       and driving Generative AI adoption at scale.
     </p> -->
-    <p class="hero-bio">
-      Building scalable backend systems & AI-powered enterprise solutions.
-      Currently at <strong>Genpact</strong>, leading enterprise application development
-      and driving Generative AI adoption at scale.
-    </p>
-    
-    <div class="hero-btns">
-      <a href="https://neehal-gupta.github.io/NeehalRajGupta.pdf" target="_blank" class="btn-primary">
-        View Resume ↗
+      <p class="hero-bio">
+        Building scalable backend systems & AI-powered enterprise solutions.
+        Currently at <strong>Genpact</strong>, leading enterprise application development
+        and driving Generative AI adoption at scale.
+      </p>
+
+      <div class="hero-btns">
+        <a href="https://neehal-gupta.github.io/NeehalRajGupta.pdf" target="_blank" class="btn-primary">
+          View Resume ↗
+        </a>
+        <a href="#contact" class="btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" aria-hidden="true">
+      <span class="marquee-item hi">Java</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Spring Boot</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item hi">Microservices</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Cloud Native</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item hi">Generative AI</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Kubernetes</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item hi">Docker</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Kafka</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item hi">PostgreSQL</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">CI/CD</span>
+      <span class="marquee-item">·</span>
+      <!-- duplicate -->
+      <span class="marquee-item hi">Java</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Spring Boot</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item hi">Microservices</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Cloud Native</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item hi">Generative AI</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Kubernetes</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item hi">Docker</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">Kafka</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item hi">PostgreSQL</span>
+      <span class="marquee-item">·</span>
+      <span class="marquee-item">CI/CD</span>
+      <span class="marquee-item">·</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="section-header reveal">
+      <div class="section-label">About</div>
+      <h2 class="section-title">Who I am</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I am a <strong>Software Engineer and Consultant at Genpact</strong>, with over three years of experience
+          building enterprise-grade backend systems. My core focus is on clean architecture,
+          scalable microservices, and production-ready Java applications.
+        </p>
+        <p>
+          I hold a <strong>Bronze Award</strong> for automating a critical business module that
+          eliminated manual effort, reduced defect rates by 25%, and saved <strong>$42,000</strong>
+          in operational costs. I believe good engineering is measured by the problems it solves, not
+          the lines of code it takes.
+        </p>
+        <p>
+          Beyond backend systems, I actively explore <strong>Generative AI</strong> — holding
+          certifications from Oracle, Google Cloud, and AWS — and applying AI-driven solutions
+          in real enterprise contexts.
+        </p>
+      </div>
+      <div class="about-stats reveal reveal-delay-1">
+        <div class="stat-box">
+          <div class="stat-n">3+</div>
+          <div class="stat-l">Years professional experience</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-n">50+</div>
+          <div class="stat-l">Production features delivered</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-n">$42K</div>
+          <div class="stat-l">Cost saved via automation</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-n">2000+</div>
+          <div class="stat-l">Users on managed apps</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="section-header reveal">
+      <div class="section-label">Skills</div>
+      <h2 class="section-title">Capabilities</h2>
+    </div>
+    <div class="reveal">
+      <div class="skill-row">
+        <span class="skill-idx">01</span>
+        <span class="skill-name">Backend Engineering</span>
+        <div class="skill-pills">
+          <span class="pill">Core Java</span>
+          <span class="pill">Spring Boot</span>
+          <span class="pill">Microservices</span>
+          <span class="pill">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-idx">02</span>
+        <span class="skill-name">Cloud & DevOps</span>
+        <div class="skill-pills">
+          <span class="pill">Docker</span>
+          <span class="pill">Kubernetes</span>
+          <span class="pill">Jenkins</span>
+          <span class="pill">CI/CD</span>
+          <span class="pill">Maven</span>
+          <span class="pill">Unix</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-idx">03</span>
+        <span class="skill-name">Messaging & Data</span>
+        <div class="skill-pills">
+          <span class="pill">Kafka</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">SQL</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-idx">04</span>
+        <span class="skill-name">Generative AI</span>
+        <div class="skill-pills">
+          <span class="pill">LLMs</span>
+          <span class="pill">Prompt Engineering</span>
+          <span class="pill">OCI GenAI</span>
+          <span class="pill">Google Vertex AI</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-idx">05</span>
+        <span class="skill-name">Testing & Practices</span>
+        <div class="skill-pills">
+          <span class="pill">Mockito</span>
+          <span class="pill">TDD</span>
+          <span class="pill">Code Review</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-idx">06</span>
+        <span class="skill-name">Frontend</span>
+        <div class="skill-pills">
+          <span class="pill">React</span>
+          <span class="pill">TypeScript</span>
+          <span class="pill">HTML/CSS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section">
+    <div class="section-header reveal">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">Work history</h2>
+    </div>
+    <div class="reveal">
+      <div class="exp-header">
+        <div class="exp-co-wrap">
+          <img src="https://raw.githubusercontent.com/Neehal-Gupta/neehal-gupta.github.io/main/logos/genpact.png"
+            class="exp-logo" alt="Company logo">
+          <div class="exp-co">ABCD Technologies</div>
+        </div>
+        <div class="exp-badge-pill">Jan 2021 – Present</div>
+      </div>
+
+      <div class="exp-timeline">
+        <div class="exp-role">
+          <div>
+            <div class="exp-period">Jan 2023 – Present</div>
+            <div class="exp-position">Senior Software Engineer</div>
+          </div>
+          <div>
+            <div class="exp-role-title">Senior Software Engineer</div>
+            <ul class="exp-points">
+              <li>Leading backend development using <strong>Java, Spring Boot, and microservices</strong>.</li>
+              <li>Architecting scalable systems and improving application performance by <strong>20%</strong>.</li>
+              <li>Driving adoption of <strong>cloud-native solutions and CI/CD pipelines</strong>.</li>
+              <li>Mentoring engineers and conducting structured code reviews.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-role">
+          <div>
+            <div class="exp-period">Jan 2021 – Dec 2022</div>
+            <div class="exp-position">Software Engineer</div>
+          </div>
+          <div>
+            <div class="exp-role-title">Software Engineer</div>
+            <ul class="exp-points">
+              <li>Developed backend services using <strong>Java and Spring Boot</strong>.</li>
+              <li>Designed REST APIs and improved response times by <strong>15%</strong>.</li>
+              <li>Worked on <strong>PostgreSQL</strong> query optimization and data handling.</li>
+              <li>Collaborated across teams to deliver scalable enterprise features.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+      <div class="exp-header">
+        <div class="exp-co-wrap">
+          <img src="https://raw.githubusercontent.com/Neehal-Gupta/neehal-gupta.github.io/main/logos/genpact.png"
+            class="exp-logo" alt="Genpact logo">
+          <div class="exp-co">Genpact</div>
+        </div>
+        <div class="exp-badge-pill">Aug 2022 – Present</div>
+      </div>
+      <div class="exp-timeline">
+        <div class="exp-role">
+          <div>
+            <div class="exp-period">Oct 2025 – Present</div>
+            <div class="exp-position">Consultant — 4B</div>
+          </div>
+          <div>
+            <div class="exp-role-title">Consultant</div>
+            <ul class="exp-points">
+              <li>Leading backend architecture and development for enterprise-scale applications.</li>
+              <li>Driving engineering best practices across <strong>Java, Spring Boot, microservices</strong> and cloud
+                deployments.</li>
+              <li>Owning solutioning, high-level design decisions, and cross-team technical coordination.</li>
+              <li>Mentoring junior and mid-level engineers and conducting structured code reviews.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="exp-role">
+          <div>
+            <div class="exp-period">Aug 2022 – Sep 2025</div>
+            <div class="exp-position">Consultant — 4A</div>
+            <div class="exp-award-badge">🏅 Bronze Award 2023</div>
+          </div>
+          <div>
+            <div class="exp-role-title">Consultant</div>
+            <ul class="exp-points">
+              <li>Managed a production application serving <strong>2,000+ users</strong>, delivering over <strong>20
+                  features</strong> across multiple release cycles.</li>
+              <li>Designed and built an idea management platform adopted by <strong>10+ business units</strong>.</li>
+              <li>Automated a pivotal operational module, saving <strong>$42,000</strong> in costs and reducing defect
+                rates by <strong>25%</strong>.</li>
+              <li>Optimised the application codebase, achieving a <strong>10% performance improvement</strong>.</li>
+              <li>Authored technical documentation and mentored junior developers through onboarding and delivery.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section">
+    <div class="section-header reveal">
+      <div class="section-label">Projects</div>
+      <h2 class="section-title">Open source work</h2>
+    </div>
+    <div id="proj-grid" class="proj-grid reveal">
+      <!-- <div class="proj-empty">Loading repositories…</div> -->
+      <div id="proj-grid" class="proj-grid reveal">
+        <div class="proj-card skeleton"></div>
+        <div class="proj-card skeleton"></div>
+        <div class="proj-card skeleton"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="section">
+    <div class="section-header reveal">
+      <div class="section-label">Certifications</div>
+      <h2 class="section-title">Cloud credentials</h2>
+    </div>
+    <div class="reveal">
+      <div class="cert-tabs" id="certTabs">
+        <button class="cert-tab active" data-p="Oracle">Oracle (4)</button>
+        <button class="cert-tab" data-p="Google Cloud">Google Cloud (1)</button>
+        <button class="cert-tab" data-p="AWS">AWS (1)</button>
+      </div>
+      <div class="cert-grid show" id="certGrid"></div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="section">
+    <div class="section-header reveal">
+      <div class="section-label">Education</div>
+      <h2 class="section-title">Academic background</h2>
+    </div>
+    <div class="edu-card reveal">
+      <div>
+        <div class="edu-degree">B.Tech — Electrical &amp; Electronics Engineering</div>
+        <div class="edu-uni">VIT University, Vellore</div>
+        <div class="edu-meta">Graduated 2022 &nbsp;·&nbsp; CGPA 8.79 / 10</div>
+      </div>
+      <div class="edu-cgpa">8.79</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="section-header reveal">
+      <div class="section-label">Contact</div>
+    </div>
+    <h2 class="contact-title reveal">Open to <span>new opportunities.</span></h2>
+    <p class="contact-sub reveal">Feel free to reach out — I read every message.</p>
+    <div class="contact-links reveal">
+      <a href="mailto:nrg9922@gmail.com" class="contact-link">
+        <span class="cl-label">Email</span>
+        <span class="cl-value">nrg9922@gmail.com</span>
       </a>
-      <a href="#contact" class="btn-outline">Get in Touch</a>
+      <a href="https://linkedin.com/in/neehal-raj-gupta-28027217b/" target="_blank" class="contact-link">
+        <span class="cl-label">LinkedIn</span>
+        <span class="cl-value">neehal-raj-gupta</span>
+      </a>
+      <a href="https://github.com/Neehal-Gupta" target="_blank" class="contact-link">
+        <span class="cl-label">GitHub</span>
+        <span class="cl-value">Neehal-Gupta</span>
+      </a>
     </div>
-  </div>
-</section>
+    <div class="contact-loc reveal">📍 Hyderabad, India</div>
+  </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track" aria-hidden="true">
-    <span class="marquee-item hi">Java</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item">Spring Boot</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item hi">Microservices</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item">Cloud Native</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item hi">Generative AI</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item">Kubernetes</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item hi">Docker</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item">Kafka</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item hi">PostgreSQL</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item">CI/CD</span>
-    <span class="marquee-item">·</span>
-    <!-- duplicate -->
-    <span class="marquee-item hi">Java</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item">Spring Boot</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item hi">Microservices</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item">Cloud Native</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item hi">Generative AI</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item">Kubernetes</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item hi">Docker</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item">Kafka</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item hi">PostgreSQL</span>
-    <span class="marquee-item">·</span>
-    <span class="marquee-item">CI/CD</span>
-    <span class="marquee-item">·</span>
-  </div>
-</div>
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-l">© 2026 Neehal Raj Gupta</span>
+    <span class="footer-r">Java · Cloud · Generative AI</span>
+  </footer>
 
-<!-- ABOUT -->
-<section id="about" class="section">
-  <div class="section-header reveal">
-    <div class="section-label">About</div>
-    <h2 class="section-title">Who I am</h2>
-  </div>
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <p>
-        I am a <strong>Software Engineer and Consultant at Genpact</strong>, with over three years of experience
-        building enterprise-grade backend systems. My core focus is on clean architecture,
-        scalable microservices, and production-ready Java applications.
-      </p>
-      <p>
-        I hold a <strong>Bronze Award</strong> for automating a critical business module that
-        eliminated manual effort, reduced defect rates by 25%, and saved <strong>$42,000</strong>
-        in operational costs. I believe good engineering is measured by the problems it solves, not
-        the lines of code it takes.
-      </p>
-      <p>
-        Beyond backend systems, I actively explore <strong>Generative AI</strong> — holding
-        certifications from Oracle, Google Cloud, and AWS — and applying AI-driven solutions
-        in real enterprise contexts.
-      </p>
-    </div>
-    <div class="about-stats reveal reveal-delay-1">
-      <div class="stat-box">
-        <div class="stat-n">3+</div>
-        <div class="stat-l">Years professional experience</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-n">50+</div>
-        <div class="stat-l">Production features delivered</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-n">$42K</div>
-        <div class="stat-l">Cost saved via automation</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-n">2000+</div>
-        <div class="stat-l">Users on managed apps</div>
-      </div>
-    </div>
-  </div>
-</section>
+  <!-- 🔥 CHATBOT -->
+  <div id="chatbot">
 
-<!-- SKILLS -->
-<section id="skills" class="section">
-  <div class="section-header reveal">
-    <div class="section-label">Skills</div>
-    <h2 class="section-title">Capabilities</h2>
-  </div>
-  <div class="reveal">
-    <div class="skill-row">
-      <span class="skill-idx">01</span>
-      <span class="skill-name">Backend Engineering</span>
-      <div class="skill-pills">
-        <span class="pill">Core Java</span>
-        <span class="pill">Spring Boot</span>
-        <span class="pill">Microservices</span>
-        <span class="pill">REST APIs</span>
-      </div>
-    </div>
-    <div class="skill-row">
-      <span class="skill-idx">02</span>
-      <span class="skill-name">Cloud & DevOps</span>
-      <div class="skill-pills">
-        <span class="pill">Docker</span>
-        <span class="pill">Kubernetes</span>
-        <span class="pill">Jenkins</span>
-        <span class="pill">CI/CD</span>
-        <span class="pill">Maven</span>
-        <span class="pill">Unix</span>
-      </div>
-    </div>
-    <div class="skill-row">
-      <span class="skill-idx">03</span>
-      <span class="skill-name">Messaging & Data</span>
-      <div class="skill-pills">
-        <span class="pill">Kafka</span>
-        <span class="pill">PostgreSQL</span>
-        <span class="pill">SQL</span>
-      </div>
-    </div>
-    <div class="skill-row">
-      <span class="skill-idx">04</span>
-      <span class="skill-name">Generative AI</span>
-      <div class="skill-pills">
-        <span class="pill">LLMs</span>
-        <span class="pill">Prompt Engineering</span>
-        <span class="pill">OCI GenAI</span>
-        <span class="pill">Google Vertex AI</span>
-      </div>
-    </div>
-    <div class="skill-row">
-      <span class="skill-idx">05</span>
-      <span class="skill-name">Testing & Practices</span>
-      <div class="skill-pills">
-        <span class="pill">Mockito</span>
-        <span class="pill">TDD</span>
-        <span class="pill">Code Review</span>
-      </div>
-    </div>
-    <div class="skill-row">
-      <span class="skill-idx">06</span>
-      <span class="skill-name">Frontend</span>
-      <div class="skill-pills">
-        <span class="pill">React</span>
-        <span class="pill">TypeScript</span>
-        <span class="pill">HTML/CSS</span>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Toggle Button -->
+    <div id="chat-toggle">💬</div>
 
-<!-- EXPERIENCE -->
-<section id="experience" class="section">
-  <div class="section-header reveal">
-    <div class="section-label">Experience</div>
-    <h2 class="section-title">Work history</h2>
-  </div>
-  <div class="reveal">
-    <div class="exp-header">
-      <div class="exp-co">Genpact</div>
-      <div class="exp-badge-pill">Aug 2022 – Present</div>
-    </div>
-    <div class="exp-timeline">
+    <!-- Chat Window -->
+    <div id="chat-window">
+      <div class="chat-header">
+        <span>Ask Neehal</span>
+        <button id="chat-close">✕</button>
+      </div>
 
-      <div class="exp-role">
-        <div>
-          <div class="exp-period">Oct 2025 – Present</div>
-          <div class="exp-position">Consultant — 4B</div>
+      <div id="chat-messages"></div>
+
+      <!-- Suggestions -->
+      <!-- <div class="chat-suggestions">
+        <button>About you</button>
+        <button>Tech stack</button>
+        <button>Projects</button>
+        <button>AI work</button>
+      </div> -->
+      <div class="chat-suggestions">
+        <div class="chat-suggestions-label">
+          Suggested questions:
         </div>
-        <div>
-          <div class="exp-role-title">Consultant</div>
-          <ul class="exp-points">
-            <li>Leading backend architecture and development for enterprise-scale applications.</li>
-            <li>Driving engineering best practices across <strong>Java, Spring Boot, microservices</strong> and cloud deployments.</li>
-            <li>Owning solutioning, high-level design decisions, and cross-team technical coordination.</li>
-            <li>Mentoring junior and mid-level engineers and conducting structured code reviews.</li>
-          </ul>
-        </div>
+        <div id="chat-suggestions"></div>
       </div>
 
-      <div class="exp-role">
-        <div>
-          <div class="exp-period">Aug 2022 – Sep 2025</div>
-          <div class="exp-position">Consultant — 4A</div>
-          <div class="exp-award-badge">🏅 Bronze Award 2023</div>
-        </div>
-        <div>
-          <div class="exp-role-title">Consultant</div>
-          <ul class="exp-points">
-            <li>Managed a production application serving <strong>2,000+ users</strong>, delivering over <strong>20 features</strong> across multiple release cycles.</li>
-            <li>Designed and built an idea management platform adopted by <strong>10+ business units</strong>.</li>
-            <li>Automated a pivotal operational module, saving <strong>$42,000</strong> in costs and reducing defect rates by <strong>25%</strong>.</li>
-            <li>Optimised the application codebase, achieving a <strong>10% performance improvement</strong>.</li>
-            <li>Authored technical documentation and mentored junior developers through onboarding and delivery.</li>
-          </ul>
-        </div>
+      <div class="chat-input">
+        <input type="text" id="chat-input" placeholder="Ask something..." />
+        <button id="chat-send">➤</button>
       </div>
-
     </div>
   </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="section">
-  <div class="section-header reveal">
-    <div class="section-label">Projects</div>
-    <h2 class="section-title">Open source work</h2>
-  </div>
-  <div id="proj-grid" class="proj-grid reveal">
-    <!-- <div class="proj-empty">Loading repositories…</div> -->
-     <div id="proj-grid" class="proj-grid reveal">
-    <div class="proj-card skeleton"></div>
-    <div class="proj-card skeleton"></div>
-    <div class="proj-card skeleton"></div>
-</div>
-  </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section id="certifications" class="section">
-  <div class="section-header reveal">
-    <div class="section-label">Certifications</div>
-    <h2 class="section-title">Cloud credentials</h2>
-  </div>
-  <div class="reveal">
-    <div class="cert-tabs" id="certTabs">
-      <button class="cert-tab active" data-p="Oracle">Oracle (4)</button>
-      <button class="cert-tab" data-p="Google Cloud">Google Cloud (1)</button>
-      <button class="cert-tab" data-p="AWS">AWS (1)</button>
-    </div>
-    <div class="cert-grid show" id="certGrid"></div>
-  </div>
-</section>
-
-<!-- EDUCATION -->
-<section id="education" class="section">
-  <div class="section-header reveal">
-    <div class="section-label">Education</div>
-    <h2 class="section-title">Academic background</h2>
-  </div>
-  <div class="edu-card reveal">
-    <div>
-      <div class="edu-degree">B.Tech — Electrical &amp; Electronics Engineering</div>
-      <div class="edu-uni">VIT University, Vellore</div>
-      <div class="edu-meta">Graduated 2022 &nbsp;·&nbsp; CGPA 8.79 / 10</div>
-    </div>
-    <div class="edu-cgpa">8.79</div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="section">
-  <div class="section-header reveal">
-    <div class="section-label">Contact</div>
-  </div>
-  <h2 class="contact-title reveal">Open to <span>new opportunities.</span></h2>
-  <p class="contact-sub reveal">Feel free to reach out — I read every message.</p>
-  <div class="contact-links reveal">
-    <a href="mailto:nrg9922@gmail.com" class="contact-link">
-      <span class="cl-label">Email</span>
-      <span class="cl-value">nrg9922@gmail.com</span>
-    </a>
-    <a href="https://linkedin.com/in/neehal-raj-gupta-28027217b/" target="_blank" class="contact-link">
-      <span class="cl-label">LinkedIn</span>
-      <span class="cl-value">neehal-raj-gupta</span>
-    </a>
-    <a href="https://github.com/Neehal-Gupta" target="_blank" class="contact-link">
-      <span class="cl-label">GitHub</span>
-      <span class="cl-value">Neehal-Gupta</span>
-    </a>
-  </div>
-  <div class="contact-loc reveal">📍 Hyderabad, India</div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <span class="footer-l">© 2026 Neehal Raj Gupta</span>
-  <span class="footer-r">Java · Cloud · Generative AI</span>
-</footer>
-
 
 <script src="js/script.js"></script>
+
 </body>
+
 </html>
