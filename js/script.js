@@ -1,3 +1,7 @@
+let showAllSuggestions = false;
+let currentSection = "hero"; // default
+let suggestionsVisible = true;
+
 // 🔥 COMPLETE INTENTS
 const intents = [
 
@@ -461,6 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
   toggle.addEventListener("click", () => {
     chatWindow.classList.toggle("open");
     hasInteractedWithChat = true; 
+    renderSuggestionToggleText(); 
 
     if (chatWindow.classList.contains("open")) {
       backBtn.style.display = "none";
@@ -470,6 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🔥 Close button
   closeBtn.addEventListener("click", () => {
     chatWindow.classList.remove("open");
+    renderSuggestionToggleText();
   });
 
   // 🔥 Scroll logic (ONLY place this should exist)
@@ -567,23 +573,136 @@ function showTyping(callback) {
 //   return "You can ask about my experience, tech stack, or projects 👇";
 // }
 
+// 🔥 Normalize input
+function normalize(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^\w\s]/g, "")
+    .trim();
+}
+
+// 🔥 Small talk / greetings
+function handleSmallTalk(input) {
+  const words = normalize(input).split(" ");
+
+  const greetings = ["hi", "hello", "hey", "hii", "heyy"];
+  const howAreYou = ["how are you", "how r you", "hows it going"];
+  const thanks = ["thanks", "thank", "thx"];
+
+  // Greeting
+  if (words.some(w => greetings.includes(w))) {
+    const hour = new Date().getHours();
+    let greet = "Hey";
+
+    if (hour < 12) greet = "Good morning";
+    else if (hour < 18) greet = "Good afternoon";
+    else greet = "Good evening";
+
+    return `
+${greet} 👋  
+
+I'm Neehal's virtual assistant.  
+How can I help you today?
+
+👉 You can ask about:
+• Experience  
+• Tech stack  
+• Projects  
+• AI work  
+`;
+  }
+
+  // How are you
+  if (howAreYou.some(q => normalize(input).includes(q))) {
+    return `
+I'm doing great, thanks for asking 😊  
+
+How can I assist you today?
+`;
+  }
+
+  // Thanks
+  if (words.some(w => thanks.includes(w))) {
+    return `
+You're welcome 🙌  
+
+Let me know if you'd like to explore more!
+`;
+  }
+
+  return null;
+}
+
+// function getBotReply(input) {
+//   input = input.toLowerCase();
+
+//   let bestMatch = null;
+//   let maxMatches = 0;
+
+//   for (let intent of intents) {
+//     let matches = intent.keywords.filter(k => input.includes(k)).length;
+
+//     if (matches > maxMatches) {
+//       maxMatches = matches;
+//       bestMatch = intent;
+//     }
+//   }
+
+//   if (bestMatch) return bestMatch.response;
+
+//   return `
+// That’s a great question 🤔  
+
+// I may not have a direct answer yet.
+
+// 👉 Meanwhile you can explore:
+// <button class="chat-link-btn" data-target="projects">Projects</button>
+// <button class="chat-link-btn" data-target="experience">Experience</button> <br>
+
+// You can reach me at:<br>
+// <div>📧 <a href="mailto:nrg9922@gmail.com">nrg9922@gmail.com</a></div>
+// <div>📞 <a href="tel:+919065802656">+91 90658 02656</a></div>
+
+// 👉 Feel free to connect for discussions.
+// `;
+// }
+
 function getBotReply(input) {
-  input = input.toLowerCase();
+  // 🔥 1. Handle greetings first
+  const smallTalk = handleSmallTalk(input);
+  if (smallTalk) return smallTalk;
+
+  input = normalize(input);
 
   let bestMatch = null;
-  let maxMatches = 0;
+  let maxScore = 0;
 
   for (let intent of intents) {
-    let matches = intent.keywords.filter(k => input.includes(k)).length;
+    let score = 0;
 
-    if (matches > maxMatches) {
-      maxMatches = matches;
+    for (let keyword of intent.keywords) {
+      keyword = normalize(keyword);
+
+      // exact match
+      if (input.includes(keyword)) {
+        score += 3;
+      }
+
+      // partial / fuzzy match
+      if (keyword.includes(input) || input.includes(keyword.slice(0, 4))) {
+        score += 1;
+      }
+    }
+
+    if (score > maxScore) {
+      maxScore = score;
       bestMatch = intent;
     }
   }
 
-  if (bestMatch) return bestMatch.response;
-
+  if (bestMatch && maxScore > 0) {
+    return bestMatch.response;
+  }
   return `
 That’s a great question 🤔  
 
@@ -613,6 +732,12 @@ function sendMessage() {
     const reply = getBotReply(text);
     addMessage(reply, "bot");
   });
+  if (suggestionsVisible) {
+  suggestionsVisible = false;
+  document.getElementById("chat-suggestions-wrapper").style.display = "none";
+  renderSuggestionToggleText();
+}
+renderSuggestionToggleText();
 }
 
 sendBtn.onclick = sendMessage;
@@ -639,7 +764,7 @@ input.addEventListener("keypress", e => {
 
 // loadChat();
 
-renderSuggestions();
+// renderSuggestions();
 
 const chatMessages = document.getElementById("chat-messages");
 
@@ -708,7 +833,8 @@ const sectionSuggestions = {
     "What impact did you deliver?"
   ]
 };
-
+updateSuggestions(sectionSuggestions["hero"]);
+renderSuggestionToggleText();
 let hasUserScrolled = false;
 
 window.addEventListener("scroll", () => {
@@ -722,13 +848,14 @@ const sectionObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       const sectionId = entry.target.id;
+      currentSection = sectionId; 
 
-      if (sectionSuggestions[sectionId]) {
+      if (!showAllSuggestions && sectionSuggestions[sectionId]) {
         updateSuggestions(sectionSuggestions[sectionId]);
       }
     }
   });
-}, { threshold: 0.5 });
+}, { threshold: 0.1 });
 
 // Observe sections
 ["hero", "projects", "experience"].forEach(id => {
@@ -738,26 +865,164 @@ const sectionObserver = new IntersectionObserver((entries) => {
 
 // 🔥 Update suggestions dynamically
 function updateSuggestions(questions) {
+  const wrapper = document.getElementById("chat-suggestions-wrapper");
+
+  if (!suggestionsVisible) {
+    wrapper.style.display = "none";
+  } else {
+    wrapper.style.display = "block";
+  }
   const suggestionBox = document.getElementById("chat-suggestions");
   if (!suggestionBox) return;
 
   suggestionBox.innerHTML = "";
 
-  questions.forEach(q => {
+  const list = showAllSuggestions ? intents : questions;
+
+
+  list.forEach(item => {
     const btn = document.createElement("button");
-    btn.innerText = q;
+    btn.innerText = typeof item === "string" ? item : item.question;
 
     btn.onclick = () => {
-      addMessage(q, "user");
+      hasInteractedWithChat = true;
+
+      addMessage(btn.innerText, "user");
 
       showTyping(() => {
-        const reply = getBotReply(q);
+        const reply = getBotReply(btn.innerText);
         addMessage(reply, "bot");
       });
+      if (suggestionsVisible) {
+        suggestionsVisible = false;
+        document.getElementById("chat-suggestions-wrapper").style.display = "none";
+        renderSuggestionToggleText();
+      } 
     };
 
     suggestionBox.appendChild(btn);
   });
+
+  // 🔥 Toggle button
+  const toggleBtn = document.createElement("button");
+  toggleBtn.className = "view-all-btn";
+  toggleBtn.innerText = showAllSuggestions ? "Show less" : "View all";
+
+  toggleBtn.onclick = () => {
+    showAllSuggestions = !showAllSuggestions;
+
+    if (showAllSuggestions) {
+      updateSuggestions(intents);
+    } else {
+      updateSuggestions(sectionSuggestions[currentSection] || []);
+    }
+  };
+
+  suggestionBox.appendChild(toggleBtn);
+  renderSuggestionToggleText();
+}
+
+// function renderSuggestionToggle() {
+//   let toggle = document.getElementById("suggestion-toggle");
+
+//   if (!toggle) {
+//     toggle = document.createElement("button");
+//     toggle.id = "suggestion-toggle";
+//     toggle.className = "suggestion-toggle-btn";
+    
+//     // place above input
+//     // const container = document.getElementById("chat-input").parentElement;
+//     // container.prepend(toggle);
+//     const input = document.getElementById("chat-input");
+//     input.parentElement.insertBefore(toggle, input);
+//   }
+
+//   toggle.innerText = suggestionsVisible ? "Hide suggestions" : "Show suggestions";
+
+//   toggle.onclick = () => {
+//     suggestionsVisible = !suggestionsVisible;
+
+//     const suggestionBox = document.getElementById("chat-suggestions");
+//     suggestionBox.style.display = suggestionsVisible ? "flex" : "none";
+
+//     // renderSuggestionToggle(); // update text
+//     renderSuggestionToggleText();
+//   };
+// }
+
+function renderSuggestionToggleText() {
+  let toggle = document.getElementById("suggestion-toggle-text");
+
+  if (!toggle) {
+    toggle = document.createElement("div");
+    toggle.id = "suggestion-toggle-text";
+
+    // const container = document.getElementById("chat-input").parentElement;
+    // container.prepend(toggle);
+    const inputContainer = document.getElementById("chat-input").parentElement;
+
+    // ensure container is positioned
+    inputContainer.style.position = "relative";
+
+    // append inside container (not before)
+    inputContainer.appendChild(toggle);
+  }
+
+  const chatWindow = document.getElementById("chat-window");
+
+  if (suggestionsVisible && showAllSuggestions) {
+    toggle.style.top = "-108";
+  } else if (suggestionsVisible) {
+    toggle.style.top = "-108px";
+  } else {
+    toggle.style.top = "-25px";
+  }
+  toggle.style.position = "absolute";
+  // toggle.style.top = "-25px";
+  toggle.style.right = "6px";
+
+  toggle.style.fontSize = "11px";
+  toggle.style.color = "var(--fg2)";
+  toggle.style.cursor = "pointer";
+  toggle.style.whiteSpace = "nowrap";
+
+  toggle.onmouseenter = () => toggle.style.opacity = "0.7";
+  toggle.onmouseleave = () => toggle.style.opacity = "1";
+
+  // if (suggestionsVisible) {
+  //   toggle.style.display = "none";
+  // } else {
+  //   toggle.style.display = "block";
+  //   toggle.innerText = "View suggested questions";
+  // }
+
+  toggle.style.display = hasInteractedWithChat ? "block" : "none";
+
+  toggle.innerText = suggestionsVisible
+    ? "Hide suggested questions"
+    : "View suggested questions";
+
+  // toggle.onclick = () => {
+  //   suggestionsVisible = true;
+
+  //   document.getElementById("chat-suggestions-wrapper").style.display = "block";
+  //   toggle.style.display = "none";
+  // };
+
+  toggle.onclick = () => {
+  suggestionsVisible = !suggestionsVisible;
+
+  const wrapper = document.getElementById("chat-suggestions-wrapper");
+
+  if (suggestionsVisible) {
+    wrapper.style.display = "block";
+  } else {
+    wrapper.style.display = "none";
+  }
+
+  renderSuggestionToggleText(); // 🔥 refresh text
+  };
+
 }
 
 document.addEventListener("click", function (e) {
