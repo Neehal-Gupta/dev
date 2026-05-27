@@ -1052,113 +1052,147 @@ document.addEventListener("click", function (e) {
    ADDITIONS — appended on top of existing code
    ════════════════════════════════════════════ */
 
-/* ─── GLOBAL BACKGROUND CANVAS ─── */
-(function startBgCanvas() {
-  const canvas = document.getElementById('bg-canvas');
-  if (!canvas) return;
+/* ─── PATTERN MANAGER ───
+   • Picks a pattern randomly once per calendar day (consistent within the day)
+   • Respects the enable/disable toggle from the Shift+B panel
+   • Secret panel: press Shift+B to open/close
+─────────────────────────────────────────────*/
+import { PATTERNS } from './patterns.js';
+
+const BG_STATE_KEY  = 'nrg_bg_state';   // { enabled, patternId, date }
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(BG_STATE_KEY)) || {}; } catch { return {}; }
+}
+function saveState(s) {
+  try { localStorage.setItem(BG_STATE_KEY, JSON.stringify(s)); } catch {}
+}
+
+// Pick daily pattern: seeded by today's date string so it's the same all day
+function dailyPattern() {
+  const seed = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const idx  = parseInt(seed) % PATTERNS.length;
+  return PATTERNS[idx].id;
+}
+
+const canvas  = document.getElementById('bg-canvas');
+let   stopFn  = null;   // holds the cancel function returned by each pattern
+let   bgState = loadState();
+
+// If no saved state, set defaults
+if (bgState.enabled === undefined) bgState.enabled = true;
+
+// Rotate daily: if stored date ≠ today, pick a new random pattern
+const today = new Date().toISOString().slice(0, 10);
+if (bgState.date !== today) {
+  bgState.patternId = dailyPattern();
+  bgState.date      = today;
+  saveState(bgState);
+}
+
+function isBgDark() {
+  return document.documentElement.dataset.theme !== 'light';
+}
+
+function startPattern(id) {
+  if (stopFn) { stopFn(); stopFn = null; }
+  if (!bgState.enabled || !canvas) return;
+  canvas.style.opacity = '';
+  const entry = PATTERNS.find(p => p.id === id);
+  if (!entry) return;
   const ctx = canvas.getContext('2d');
-  let pts = [];
-  let mouse = { x: -9999, y: -9999 };
-  const MOUSE_RADIUS = 120;
-  const CONNECT_DIST = 140;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  function getThemeColors() {
-    const dark = document.documentElement.dataset.theme !== 'light';
-    return dark
-      ? { dot: '200,235,100', line: '200,235,100', dotAlpha: 0.75, lineAlpha: 0.28, dotR: [1.5, 3.5] }
-      : { dot: '40,100,60',   line: '40,100,60',   dotAlpha: 0.55, lineAlpha: 0.20, dotR: [1.5, 3.5] };
-  }
-
+  // Handle canvas resize for this pattern
   function resize() {
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
-    const count = Math.max(60, Math.floor((canvas.width * canvas.height) / 14000));
-    const c = getThemeColors();
-    pts = Array.from({ length: Math.min(count, 90) }, () => ({
-      x:  Math.random() * canvas.width,
-      y:  Math.random() * canvas.height,
-      vx: (Math.random() - .5) * .45,
-      vy: (Math.random() - .5) * .45,
-      r:  Math.random() * (c.dotR[1] - c.dotR[0]) + c.dotR[0],
-      pulse: Math.random() * Math.PI * 2, // phase offset for pulsing
-    }));
   }
   resize();
   window.addEventListener('resize', resize);
 
-  // Track mouse position
-  window.addEventListener('mousemove', e => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-  window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+  stopFn = entry.fn(canvas, ctx, isBgDark);
 
-  let frame = 0;
-  function draw() {
-    frame++;
+  // Wrap stop to also remove resize listener
+  const origStop = stopFn;
+  stopFn = () => { origStop(); window.removeEventListener('resize', resize); };
+}
+
+function stopPattern() {
+  if (stopFn) { stopFn(); stopFn = null; }
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const c = getThemeColors();
-
-    pts.forEach(p => {
-      // Normal movement
-      p.x += p.vx;
-      p.y += p.vy;
-
-      // Bounce off edges
-      if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-      // Mouse repulsion
-      const mdx = p.x - mouse.x;
-      const mdy = p.y - mouse.y;
-      const md  = Math.sqrt(mdx * mdx + mdy * mdy);
-      if (md < MOUSE_RADIUS && md > 0) {
-        const force = (MOUSE_RADIUS - md) / MOUSE_RADIUS;
-        p.x += (mdx / md) * force * 2.5;
-        p.y += (mdy / md) * force * 2.5;
-      }
-
-      // Subtle size pulse
-      p.pulse += 0.018;
-      const pr = p.r + Math.sin(p.pulse) * 0.6;
-
-      // Draw dot with glow
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, pr, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${c.dot},${c.dotAlpha})`;
-      ctx.fill();
-
-      // Glow halo on larger dots
-      if (p.r > 2.5) {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, pr * 2.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${c.dot},0.06)`;
-        ctx.fill();
-      }
-    });
-
-    // Draw connecting lines
-    for (let i = 0; i < pts.length; i++) {
-      for (let j = i + 1; j < pts.length; j++) {
-        const dx = pts[i].x - pts[j].x;
-        const dy = pts[i].y - pts[j].y;
-        const d  = Math.sqrt(dx * dx + dy * dy);
-        if (d < CONNECT_DIST) {
-          const alpha = c.lineAlpha * (1 - d / CONNECT_DIST);
-          ctx.beginPath();
-          ctx.moveTo(pts[i].x, pts[i].y);
-          ctx.lineTo(pts[j].x, pts[j].y);
-          ctx.strokeStyle = `rgba(${c.line},${alpha})`;
-          ctx.lineWidth   = .8;
-          ctx.stroke();
-        }
-      }
-    }
-
-    requestAnimationFrame(draw);
   }
-  draw();
-})();
+}
+
+// Initial start
+startPattern(bgState.patternId);
+
+document.getElementById('themeBtn')?.addEventListener('click', () => {
+  setTimeout(() => startPattern(bgState.patternId), 50);
+});
+
+/* ─── SECRET PANEL (Shift+B) ─── */
+function buildPanel() {
+  const panel = document.createElement('div');
+  panel.id = 'bg-panel';
+  panel.innerHTML = `
+    <div class="bgp-header">
+      <span class="bgp-title">Background<span class="bgp-hint">Shift+B</span></span>
+      <label class="bgp-toggle">
+        <input type="checkbox" id="bgp-enable" ${bgState.enabled ? 'checked' : ''}>
+        <span class="bgp-slider"></span>
+      </label>
+    </div>
+    <div class="bgp-grid" id="bgp-grid"></div>
+    <div class="bgp-footer">Changes save automatically</div>
+  `;
+  document.body.appendChild(panel);
+
+  // Build pattern buttons
+  const grid = panel.querySelector('#bgp-grid');
+  PATTERNS.forEach(p => {
+    const btn = document.createElement('button');
+    btn.className = 'bgp-btn' + (p.id === bgState.patternId ? ' bgp-btn--active' : '');
+    btn.dataset.id = p.id;
+    btn.innerHTML = `<span class="bgp-id">${p.id}</span><span class="bgp-name">${p.name}</span>`;
+    btn.onclick = () => {
+      if (!bgState.enabled) return;
+      bgState.patternId = p.id;
+      bgState.date      = today; // lock today's choice
+      saveState(bgState);
+      startPattern(p.id);
+      grid.querySelectorAll('.bgp-btn').forEach(b => b.classList.remove('bgp-btn--active'));
+      btn.classList.add('bgp-btn--active');
+    };
+    grid.appendChild(btn);
+  });
+
+  // Toggle enable/disable
+  panel.querySelector('#bgp-enable').addEventListener('change', e => {
+    bgState.enabled = e.target.checked;
+    saveState(bgState);
+    if (bgState.enabled) startPattern(bgState.patternId);
+    else stopPattern();
+    // Dim/undim buttons
+    grid.querySelectorAll('.bgp-btn').forEach(b => {
+      b.style.opacity = bgState.enabled ? '' : '0.35';
+      b.style.pointerEvents = bgState.enabled ? '' : 'none';
+    });
+  });
+
+  return panel;
+}
+
+let panel = null;
+document.addEventListener('keydown', e => {
+  if (e.shiftKey && e.key === 'B') {
+    if (!panel) panel = buildPanel();
+    panel.classList.toggle('bgp-open');
+  }
+});
+
 
 /* ─── TYPEWRITER EFFECT ─── */
 (function startTyping() {
