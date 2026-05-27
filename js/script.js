@@ -9,7 +9,7 @@ const intents = [
     question: "Tell me about yourself",
     keywords: ["about", "yourself", "who are you", "introduction","intro"],
     response: `
-I'm Neehal Raj Gupta, a Backend Engineer with 3+ years of experience at Genpact.
+I'm Neehal Raj Gupta, a Backend Engineer with 4 years of experience at Genpact.
 
 I specialize in building scalable backend systems using Java, Spring Boot, and microservices. 
 I’ve also worked on Generative AI solutions using OCI and Vertex AI.
@@ -22,7 +22,7 @@ I’ve also worked on Generative AI solutions using OCI and Vertex AI.
     question: "What is your experience?",
     keywords: ["experience", "years", "work"],
     response: `
-I have 3+ years of experience building enterprise backend systems.
+I have 4 years of experience building enterprise backend systems.
 
 At Genpact, I’ve:
 ✔ Delivered 50+ production features  
@@ -555,7 +555,7 @@ function showTyping(callback) {
 //   inputText = inputText.toLowerCase();
 
 //   if (inputText.includes("about")) {
-//     return "I'm Neehal, a Backend Engineer with 3+ years at Genpact building scalable systems.";
+//     return "I'm Neehal, a Backend Engineer with 4 years at Genpact building scalable systems.";
 //   }
 
 //   if (inputText.includes("tech")) {

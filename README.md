@@ -6,7 +6,7 @@
 
 ## 🧠 About Me
 
-I am a **Software Engineer & Consultant at Genpact** with 3+ years of experience building scalable backend systems and enterprise-grade applications.
+I am a **Software Engineer & Consultant at Genpact** with 4 years of experience building scalable backend systems and enterprise-grade applications.
 
 * ⚙️ Backend: Java, Spring Boot, Microservices
 * ☁️ Cloud & DevOps: Docker, Kubernetes, CI/CD
